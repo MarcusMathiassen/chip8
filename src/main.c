@@ -427,7 +427,7 @@ void emulateCycle()
             pc += 2;
             break;
 
-        default: printf("Unknown opcode [0xF000]: 0x%X\n", opcode);
+        default: warning("Unknown opcode [0xF000]: 0x%X\n", opcode);
         }
         break;
 
@@ -438,7 +438,7 @@ void emulateCycle()
     if (delay_timer > 0) --delay_timer;
 
     if (sound_timer > 0) {
-        if (sound_timer == 1) warning("BEEP!\n");
+        if (sound_timer == 1) warning("\a");
         --sound_timer;
     }
 }
@@ -490,22 +490,12 @@ void key_callback(GLFWwindow* window, s32 key, s32 scancode, s32 action, s32 mod
 int main(int argc, char** argv)
 {
     glfwInit();
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-
     GLFWwindow* context = glfwCreateWindow(display_width, display_height, "CHIP-8", NULL, NULL);
-
     glewInit();
-
     glfwMakeContextCurrent(context);
-
     glfwSetKeyCallback(context, &key_callback);
-
     glLoadIdentity();
     glOrtho(0, display_width, display_height, 0, -1, 1);
-
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     initilize();
     loadGame(argv[1]);

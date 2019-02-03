@@ -9,5 +9,5 @@ std=c99
 
 $compiler $src -std=$std $olvl $libs $flags -o $output -g -fsanitize=address -fno-omit-frame-pointer
 
-./chip8 ./res/BRIX
+./chip8 ./res/PONG
 rm ./chip8
